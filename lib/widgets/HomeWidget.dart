@@ -1,7 +1,7 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/service/AuthService.dart';
+import 'package:myapp/services/AuthService.dart';
 
 import '../model/Subject.dart';
 import 'SubjectItem.dart';
@@ -45,6 +45,21 @@ class HomeScreen extends StatelessWidget {
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
+              ),
+              // profile button
+              Row(
+                children: [
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      shape: const CircleBorder(),
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/profile");
+                    }, 
+                    child: const Icon(Icons.person)
+                  ),
+                  Text("Hồ sơ", style: TextStyle(fontSize: 15),)
+                ],
               ),
               OutlinedButton(
                 onPressed: () {

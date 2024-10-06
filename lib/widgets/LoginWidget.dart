@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/service/AuthService.dart';
+import 'package:myapp/services/AuthService.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -9,27 +9,33 @@ class LoginPage extends StatelessWidget {
     final bool isSmallScreen = MediaQuery.of(context).size.width < 600;
 
     return Scaffold(
-        body: Center(
-            child: isSmallScreen
-                ? const Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      _Logo(),
-                      _FormContent(),
-                    ],
-                  )
-                : Container(
-                    padding: const EdgeInsets.all(32.0),
-                    constraints: const BoxConstraints(maxWidth: 800),
-                    child: const Row(
-                      children: const [
-                        Expanded(child: _Logo()),
-                        Expanded(
-                          child: Center(child: _FormContent()),
-                        ),
-                      ],
+      body: Center(
+        child: isSmallScreen
+            ? const SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _Logo(),
+                    _FormContent(),
+                  ],
+                ),
+              )
+            : Container(
+                padding: const EdgeInsets.all(32.0),
+                constraints: const BoxConstraints(maxWidth: 800),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Expanded(child: _Logo()),
+                    const SizedBox(width: 32), // Khoảng cách giữa logo và form
+                    const Expanded(
+                      child: Center(child: _FormContent()),
                     ),
-                  )));
+                  ],
+                ),
+              ),
+      ),
+    );
   }
 }
 
@@ -38,25 +44,18 @@ class _Logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isSmallScreen = MediaQuery.of(context).size.width < 600;
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        FlutterLogo(size: isSmallScreen ? 100 : 200),
+        Image.asset('assets/images/logo.png'),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
             "Chào mừng đến với EduX",
             textAlign: TextAlign.center,
-            style: isSmallScreen
-                ? Theme.of(context).textTheme.titleMedium
-                : Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(color: Colors.black),
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.black),
           ),
-        )
+        ),
       ],
     );
   }
@@ -71,7 +70,6 @@ class _FormContent extends StatefulWidget {
 
 class __FormContentState extends State<_FormContent> {
   bool _isPasswordVisible = false;
-  bool _rememberMe = false;
   String email = '';
   String password = '';
 
@@ -85,7 +83,6 @@ class __FormContentState extends State<_FormContent> {
         key: _formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextFormField(
               onChanged: (text) {
@@ -108,28 +105,27 @@ class __FormContentState extends State<_FormContent> {
               decoration: InputDecoration(
                 labelText: 'Email',
                 hintText: 'm@example.com',
-                prefixIcon:const Icon(Icons.email_outlined),
-                border:const OutlineInputBorder(),
-                enabledBorder:  OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: const BorderSide(color: Color.fromARGB(255, 210, 210, 210)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: const BorderSide(color: Colors.blue),
-                  ),
+                prefixIcon: const Icon(Icons.email_outlined),
+                border: const OutlineInputBorder(),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Color.fromARGB(255, 210, 210, 210)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.blue),
+                ),
               ),
             ),
             _gap(),
             TextFormField(
               onChanged: (text) {
-                 password = text;
+                password = text;
               },
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Mật khẩu không được để trống';
                 }
-
                 if (value.length < 6) {
                   return 'Mật khẩu phải dài hơn 6 ký tự';
                 }
@@ -137,39 +133,43 @@ class __FormContentState extends State<_FormContent> {
               },
               obscureText: !_isPasswordVisible,
               decoration: InputDecoration(
-                  labelText: 'Password',
-                  hintText: '*********',
-                  prefixIcon: const Icon(Icons.lock_outline_rounded),
-                  border: const OutlineInputBorder(),
-                  enabledBorder:  OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: const BorderSide(color: Color.fromARGB(255, 210, 210, 210)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: const BorderSide(color: Colors.blue),
-                  ),
-                  suffixIcon: IconButton(
-                    icon: Icon(_isPasswordVisible
-                        ? Icons.visibility_off
-                        : Icons.visibility),
-                    onPressed: () {
-                      setState(() {
-                        _isPasswordVisible = !_isPasswordVisible;
-                      });
-                    },
-                  )),
+                labelText: 'Password',
+                hintText: '*********',
+                prefixIcon: const Icon(Icons.lock_outline_rounded),
+                border: const OutlineInputBorder(),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Color.fromARGB(255, 210, 210, 210)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.blue),
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(_isPasswordVisible
+                      ? Icons.visibility_off
+                      : Icons.visibility),
+                  onPressed: () {
+                    setState(() {
+                      _isPasswordVisible = !_isPasswordVisible;
+                    });
+                  },
+                ),
+              ),
             ),
             _gap(),
             Container(
-                              alignment: Alignment.centerRight,
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(context, "/reset-password");
-                                },
-                                child: const Text("Quên mật khẩu", style: TextStyle(color: Colors.blue),),
-                              ),
-                            ),
+              alignment: Alignment.centerRight,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, "/reset-password");
+                },
+                child: const Text(
+                  "Quên mật khẩu",
+                  style: TextStyle(color: Colors.blue),
+                ),
+              ),
+            ),
             _gap(),
             SizedBox(
               width: double.infinity,
@@ -198,14 +198,14 @@ class __FormContentState extends State<_FormContent> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text("Bạn đã chưa tài khoản ? "),
-                  GestureDetector(
-                      onTap: () {
-                          Navigator.pushNamed(context, "/signup");
-                        },
-                    child: const Text("Đăng ký", style: TextStyle(color: Colors.blue),),
-                                )
-                              ],
-                            )
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, "/signup");
+                  },
+                  child: const Text("Đăng ký", style: TextStyle(color: Colors.blue),),
+                )
+              ],
+            )
           ],
         ),
       ),

@@ -1,5 +1,5 @@
 import 'package:myapp/model/dto/QuestionResponse.dart';
-import 'package:myapp/service/AuthService.dart';
+import 'package:myapp/services/AuthService.dart';
 
 import 'Question.dart';
 import 'Result.dart';

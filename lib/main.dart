@@ -9,7 +9,6 @@ import 'package:myapp/widgets/ExamScreenWidget.dart';
 import 'package:myapp/widgets/HomeWidget.dart';
 import 'package:myapp/widgets/LoginWidget.dart';
 import 'package:myapp/widgets/ProfileWidget.dart';
-import 'package:myapp/widgets/ResultWidget.dart';
 import './widgets/ResetPasswordScreen.dart';
 import './widgets/RegisterWidget.dart';
 import './routes/UserProtectRoute.dart';

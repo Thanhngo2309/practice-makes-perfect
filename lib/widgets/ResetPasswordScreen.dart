@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/service/AuthService.dart';
+import 'package:myapp/services/AuthService.dart';
 
 class ResetPasswordPage extends StatelessWidget {
   const ResetPasswordPage({Key? key}) : super(key: key);
