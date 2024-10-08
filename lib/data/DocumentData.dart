@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:myapp/model/Document.dart';
 
 class DocumentData {
@@ -23,12 +25,17 @@ class DocumentData {
   static final DocumentData _instance = DocumentData._internal();
 
   DocumentData._internal();
-
   static DocumentData getInstance() {
     return _instance;
   }
 
   List<Document> getDocuments() {
     return documents;
+  }
+
+  Future<String> getDocumentUrl(int documentId) async {
+    String url = await FirebaseStorage.instance.ref('documents/$documentId.pdf').getDownloadURL();
+    print(url);
+    return url;
   }
 }
