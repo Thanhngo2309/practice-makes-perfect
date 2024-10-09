@@ -1,4 +1,7 @@
 // ignore: file_names
+import 'dart:convert';
+
+import 'package:myapp/model/Reminder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
@@ -6,6 +9,29 @@ class SharedPrefs {
 
   static Future init() async {
     _preferences = await SharedPreferences.getInstance();
+  }
+
+  static Future<void> saveReminder(Reminder reminder) async {
+    await _preferences?.setString('reminder_$reminder.id', jsonEncode(reminder.toJson()));
+  }
+  static Future<void> saveReminders(List<Reminder> reminders) async {
+    for (Reminder reminder in reminders) {
+      await saveReminder(reminder);
+    }
+  }
+
+  static Future<List<Reminder>> getReminders() async {
+    List<Reminder> reminders = [];
+    for (String key in _preferences?.getKeys() ?? []) {
+      if (key.startsWith('reminder_')) {
+        final reminderJson = _preferences?.getString(key);
+        if (reminderJson != null) {
+          final reminderData = jsonDecode(reminderJson);
+          reminders.add(Reminder.fromJson(reminderData));
+        }
+      }
+    }
+    return reminders;
   }
 
   static Future<void> saveString(String key, String value) async {

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:myapp/data/AttemptData.dart';
 import 'package:myapp/model/Attempt.dart';
 import 'package:myapp/services/AuthService.dart';
-import 'package:myapp/widgets/ResultWidget.dart';
+import 'package:myapp/widgets/History.dart';
+import 'package:myapp/widgets/StatisticWidget.dart'; // Added import for StatisticWidget
 
 class ProfileWidget extends StatefulWidget {
   @override
@@ -32,7 +33,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3, // Updated length to 3 for the new tab
       child: Scaffold(
         appBar: AppBar(
           title: Text('Profile'),
@@ -40,6 +41,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             tabs: [
               Tab(text: 'Thông tin'),
               Tab(text: 'Lịch sử thi'),
+              Tab(text: 'Thống kê'), // New tab for statistics
             ],
           ),
         ),
@@ -71,30 +73,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     child:
                         CircularProgressIndicator()) // Hiển thị loading khi đang lấy dữ liệu
                 : Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: ListView.builder(
-                        itemCount: attempts.length,
-                        itemBuilder: (context, index) {
-                          Attempt attempt = attempts[index];
-                          return ListTile(
-                            title: Text(
-                                'Đề thi: ${attempt.examId} - Điểm: ${attempt.result.score}'),
-                            subtitle: Text('Nhấn vào để xem chi tiết'),
-                            onTap: () {
-                              // Điều hướng đến ResultWidget
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ResultWidget(attempt),
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ),
+                    child: History(attempts: attempts),
                   ),
+            Center(
+              child: LineChartSample2(attempts:attempts),
+            ),
           ],
         ),
       ),

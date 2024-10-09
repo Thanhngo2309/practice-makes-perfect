@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:myapp/application-service/SharedPrefs.dart';
 import 'package:myapp/model/Subject.dart';
 import 'package:myapp/widgets/AddExam.dart';
 import 'package:myapp/widgets/ChatScreen.dart';
-import 'package:myapp/widgets/ChatWidget.dart';
 import 'package:myapp/widgets/ExamScreenWidget.dart';
 import 'package:myapp/widgets/HomeWidget.dart';
 import 'package:myapp/widgets/LoginWidget.dart';
@@ -20,7 +20,16 @@ void main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await SharedPrefs.init();
+  const AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings('@mipmap/ic_launcher');
 
+  const InitializationSettings initializationSettings = InitializationSettings(
+    android: initializationSettingsAndroid,
+  );
+
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  print("Hello world");
   runApp(const MyApp());
 }
 

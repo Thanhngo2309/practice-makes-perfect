@@ -12,7 +12,7 @@ class Attempt {
   late List<QuestionResponse> questions;
   late List<SelectedAnswer> selectedAnswers;
   String examId;
-  late String totalTime;
+  String totalTime = '0';
 
   Attempt(this.questions, this.selectedAnswers, this.examId) {
     attemptId = '${examId}_${DateTime.now().toIso8601String()}';
