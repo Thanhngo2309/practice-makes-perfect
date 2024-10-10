@@ -29,7 +29,7 @@ void main() async {
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-  print("Hello world");
+  print("Hello worldd");
   runApp(const MyApp());
 }
 
