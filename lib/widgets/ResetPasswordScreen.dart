@@ -43,7 +43,7 @@ class _Logo extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        FlutterLogo(size: isSmallScreen ? 100 : 200),
+        Image.asset('assets/images/logo.png'),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
@@ -105,16 +105,17 @@ class __FormContentState extends State<_FormContent> {
               decoration: InputDecoration(
                 labelText: 'Email',
                 hintText: 'm@example.com',
-                prefixIcon:const Icon(Icons.email_outlined),
-                border:const OutlineInputBorder(),
-                enabledBorder:  OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: const BorderSide(color: Color.fromARGB(255, 210, 210, 210)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: const BorderSide(color: Colors.blue),
-                  ),
+                prefixIcon: const Icon(Icons.email_outlined),
+                border: const OutlineInputBorder(),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                      color: Color.fromARGB(255, 210, 210, 210)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.blue),
+                ),
               ),
             ),
             _gap(),
@@ -130,7 +131,10 @@ class __FormContentState extends State<_FormContent> {
                   padding: EdgeInsets.all(10.0),
                   child: Text(
                     "Gửi lại mật khẩu",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                 ),
                 onPressed: () {
@@ -140,22 +144,24 @@ class __FormContentState extends State<_FormContent> {
                 },
               ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text("Bạn nhớ mật khẩu? "),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(context, "/signin");
-                                },
-                                child: const Text(
-                                  "Đăng nhập",
-                                  style: TextStyle(color: Colors.blue),
-                                ),
-                              )
-                            ],
-                          )
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Bạn nhớ mật khẩu? "),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, "/signin");
+                  },
+                  child: const Text(
+                    "Đăng nhập",
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                )
+              ],
+            )
           ],
         ),
       ),

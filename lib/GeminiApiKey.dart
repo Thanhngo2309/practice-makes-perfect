@@ -1,5 +1,5 @@
 class GeminiApiKey {
-  static String? _geminiApiKey = 'AIzaSyCzkbRUJZ3HqathEsM7IrB8vbYOg-Sjg5Q';
+  static String? _geminiApiKey = 'AIzaSyDnj7FJNvv6cgF4Wk0szwaadZct3ccb53E';
 
   static String get geminiApiKey => _geminiApiKey!;
 }
